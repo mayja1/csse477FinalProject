@@ -131,7 +131,11 @@ public class HttpResponseFactory {
 	 * @return A {@link HttpResponse} object represent 505 status.
 	 */
 	public static HttpResponse create505NotSupported(String connection) {
-		// TODO fill in this method
+		HttpResponse response = new HttpResponse(Protocol.VERSION, Protocol.NOT_SUPPORTED_CODE, 
+				Protocol.NOT_SUPPORTED_TEXT, new HashMap<String, String>(), null);
+		
+		fillGeneralHeader(response, connection);
+		
 		return null;
 	}
 	
@@ -142,7 +146,12 @@ public class HttpResponseFactory {
 	 * @return A {@link HttpResponse} object represent 304 status.
 	 */
 	public static HttpResponse create304NotModified(String connection) {
-		// TODO fill in this method
+		HttpResponse response = new HttpResponse(Protocol.VERSION, Protocol.NOT_MODIFIED_CODE, 
+				Protocol.NOT_MODIFIED_TEXT, new HashMap<String, String>(), null);
+		
+		fillGeneralHeader(response, connection);
+		response.put(Protocol.PROVIDER, Protocol.AUTHOR);
+		response .put(Protocol.CURRENT_SUPPORTED_TEXT, Protocol.VERSION);
 		return null;
 	}
 }
