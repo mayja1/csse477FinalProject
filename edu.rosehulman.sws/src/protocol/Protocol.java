@@ -50,6 +50,9 @@ public class Protocol {
     public static final int MOVED_PERMANENTLY_CODE = 301;
     public static final String MOVED_PERMANENTLY_TEXT = "Moved Permanently";
     
+    public static final int NOT_MODIFIED_CODE = 304;
+    public static final String NOT_MODIFIED_TEXT = "Not Modified";
+    
     public static final int BAD_REQUEST_CODE = 400;
     public static final String BAD_REQUEST_TEXT = "Bad Request";
     
@@ -58,6 +61,7 @@ public class Protocol {
     
     public static final int NOT_SUPPORTED_CODE = 505;
     public static final String NOT_SUPPORTED_TEXT = "HTTP Version Not Supported";
+    public static final String CURRENT_SUPPORTED_TEXT = "The current supported versions";
 
     // Some useful header elements in request
     public static final String HOST = "Host";
