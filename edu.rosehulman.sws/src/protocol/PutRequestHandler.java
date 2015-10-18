@@ -77,7 +77,7 @@ public class PutRequestHandler extends RequestHandler {
 			return HttpResponseFactory.create400BadRequest(Protocol.CLOSE);
 		}
 		// TODO Auto-generated method stub
-		return HttpResponseFactory.create200OK(f, Protocol.CLOSE);
+		return HttpResponseFactory.create201Created(f, Protocol.CLOSE);
 	}
 
 }
