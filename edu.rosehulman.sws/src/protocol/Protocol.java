@@ -47,6 +47,12 @@ public class Protocol {
     public static final int OK_CODE = 200;
     public static final String OK_TEXT = "OK";
     
+    public static final int CREATED_CODE = 201;
+    public static final String CREATED_TEXT = "Created";
+    
+    public static final int NO_CONTENT_CODE = 204;
+    public static final String NO_CONTENT_TEXT = "No Content";
+    
     public static final int MOVED_PERMANENTLY_CODE = 301;
     public static final String MOVED_PERMANENTLY_TEXT = "Moved Permanently";
     
@@ -74,7 +80,7 @@ public class Protocol {
     public static final String LAST_MODIFIED = "Last-Modified";
     public static final String CONTENT_LENGTH = "Content-Length";
     public static final String CONTENT_TYPE = "Content-Type";
-    
+    public static final String E_TAG = "ETAG";
     /**
      * A chunk size to be used when reading a file and sending it to a socket. 
      * Rather than reading the whole file at once, we divide the reading of the file

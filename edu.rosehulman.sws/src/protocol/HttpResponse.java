@@ -26,7 +26,9 @@ import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.OutputStream;
+import java.util.Calendar;
 import java.util.Collections;
+import java.util.Date;
 import java.util.Map;
 
 /**
@@ -51,12 +53,13 @@ public class HttpResponse {
 	 * @param header The header field map.
 	 * @param file The file to be sent.
 	 */
-	public HttpResponse(String version, int status, String phrase, Map<String, String> header, File file) {
+	public HttpResponse(String version, int status, String phrase, Map<String, String> header, File file, String connection) {
 		this.version = version;
 		this.status = status;
 		this.phrase = phrase;
 		this.header = header;
 		this.file = file;
+		fillGeneralHeader(connection);
 	}
 
 	/**
@@ -188,4 +191,22 @@ public class HttpResponse {
 		return buffer.toString();
 	}
 	
+	protected void fillGeneralHeader(String connection) {
+		// Lets add Connection header
+		this.put(Protocol.CONNECTION, connection);
+
+		// Lets add current date
+		Date date = Calendar.getInstance().getTime();
+		this.put(Protocol.DATE, date.toString());
+		
+		// Lets add server info
+		this.put(Protocol.Server, Protocol.getServerInfo());
+
+		// Lets add extra header with provider info
+		this.put(Protocol.PROVIDER, Protocol.AUTHOR);
+		
+		fillInRestOfHeader();
+	}
+	
+	public void fillInRestOfHeader() {};
 }
