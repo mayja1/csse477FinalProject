@@ -44,7 +44,7 @@ public class DeleteRequestHandler extends RequestHandler {
 	HttpResponse file_exists(String rootDirectory, String uri, File f,
 			HttpRequest hr) {
 		f.delete();
-		return HttpResponseFactory.create200OK(f, Protocol.CLOSE);
+		return HttpResponseFactory.create204NoContent(f,Protocol.CLOSE);
 	}
 
 	/* (non-Javadoc)
