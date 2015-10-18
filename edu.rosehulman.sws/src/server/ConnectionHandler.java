@@ -54,6 +54,7 @@ public class ConnectionHandler implements Runnable {
 	public ConnectionHandler(Server server, Socket socket) {
 		this.server = server;
 		this.socket = socket;
+		handlers = new HashMap<String, RequestHandler>();
 		handlers.put(Protocol.GET, new GetRequestHandler());
 		handlers.put(Protocol.POST, new PostRequestHandler());
 		handlers.put(Protocol.PUT, new PutRequestHandler());
