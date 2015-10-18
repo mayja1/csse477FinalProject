@@ -47,7 +47,7 @@ public class PostRequestHandler extends RequestHandler {
 	@Override
 	HttpResponse file_exists(String rootDirectory, String uri, File f, HttpRequest hr) {
 		try {
-			BufferedWriter bw = new BufferedWriter(new FileWriter(f));
+			BufferedWriter bw = new BufferedWriter(new FileWriter(f, true));
 			bw.write(hr.getBody());
 			bw.close();
 			return HttpResponseFactory.create200OK(f, Protocol.CLOSE);
