@@ -25,12 +25,18 @@ import java.io.File;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.Socket;
+import java.util.HashMap;
 
+import protocol.DeleteRequestHandler;
+import protocol.GetRequestHandler;
 import protocol.HttpRequest;
 import protocol.HttpResponse;
 import protocol.HttpResponseFactory;
+import protocol.PostRequestHandler;
 import protocol.Protocol;
 import protocol.ProtocolException;
+import protocol.PutRequestHandler;
+import protocol.RequestHandler;
 
 /**
  * This class is responsible for handling a incoming request
@@ -43,10 +49,15 @@ import protocol.ProtocolException;
 public class ConnectionHandler implements Runnable {
 	private Server server;
 	private Socket socket;
+	private HashMap<String, RequestHandler> handlers;
 	
 	public ConnectionHandler(Server server, Socket socket) {
 		this.server = server;
 		this.socket = socket;
+		handlers.put(Protocol.GET, new GetRequestHandler());
+		handlers.put(Protocol.POST, new PostRequestHandler());
+		handlers.put(Protocol.PUT, new PutRequestHandler());
+		handlers.put(Protocol.DELETE, new DeleteRequestHandler());
 	}
 	
 	/**
@@ -102,8 +113,9 @@ public class ConnectionHandler implements Runnable {
 			int status = pe.getStatus();
 			if(status == Protocol.BAD_REQUEST_CODE) {
 				response = HttpResponseFactory.create400BadRequest(Protocol.CLOSE);
+			} else if (status == Protocol.NOT_SUPPORTED_CODE) {
+				response = HttpResponseFactory.create505NotSupported(Protocol.CLOSE);
 			}
-			// TODO: Handle version not supported code as well
 		}
 		catch(Exception e) {
 			e.printStackTrace();
@@ -139,43 +151,10 @@ public class ConnectionHandler implements Runnable {
 				// Here you checked that the "Protocol.VERSION" string is not equal to the  
 				// "request.version" string ignoring the case of the letters in both strings
 				// TODO: Fill in the rest of the code here
+				response = HttpResponseFactory.create505NotSupported(Protocol.CLOSE);
 			}
-			else if(request.getMethod().equalsIgnoreCase(Protocol.GET)) {
-//				Map<String, String> header = request.getHeader();
-//				String date = header.get("if-modified-since");
-//				String hostName = header.get("host");
-//				
-				// Handling GET request here
-				// Get relative URI path from request
-				String uri = request.getUri();
-				// Get root directory path from server
-				String rootDirectory = server.getRootDirectory();
-				// Combine them together to form absolute file path
-				File file = new File(rootDirectory + uri);
-				// Check if the file exists
-				if(file.exists()) {
-					if(file.isDirectory()) {
-						// Look for default index.html file in a directory
-						String location = rootDirectory + uri + System.getProperty("file.separator") + Protocol.DEFAULT_FILE;
-						file = new File(location);
-						if(file.exists()) {
-							// Lets create 200 OK response
-							response = HttpResponseFactory.create200OK(file, Protocol.CLOSE);
-						}
-						else {
-							// File does not exist so lets create 404 file not found code
-							response = HttpResponseFactory.create404NotFound(Protocol.CLOSE);
-						}
-					}
-					else { // Its a file
-						// Lets create 200 OK response
-						response = HttpResponseFactory.create200OK(file, Protocol.CLOSE);
-					}
-				}
-				else {
-					// File does not exist so lets create 404 file not found code
-					response = HttpResponseFactory.create404NotFound(Protocol.CLOSE);
-				}
+			else if(handlers.containsKey(request.getMethod().toUpperCase())) {
+				response = handlers.get(request.getMethod().toUpperCase()).Process(request, this.server);
 			}
 		}
 		catch(Exception e) {
