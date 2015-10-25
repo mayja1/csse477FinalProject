@@ -23,9 +23,16 @@ package server;
 
 import gui.WebServer;
 
+import java.io.File;
+import java.io.IOException;
 import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.nio.file.FileSystems;
+import java.nio.file.Path;
+import java.util.ArrayList;
+import java.util.List;
+import java.nio.file.*;
 
 /**
  * This represents a welcoming server for the incoming
@@ -117,7 +124,8 @@ public class Server implements Runnable {
 	public void run() {
 		try {
 			this.welcomeSocket = new ServerSocket(port);
-			
+			DirectoryWatcher watcher = new DirectoryWatcher();
+			new Thread(watcher).start();
 			// Now keep welcoming new connections until stop flag is set to true
 			while(true) {
 				// Listen for incoming socket connection
@@ -129,7 +137,7 @@ public class Server implements Runnable {
 					break;
 				
 				// Create a handler for this incoming connection and start the handler in a new thread
-				ConnectionHandler handler = new ConnectionHandler(this, connectionSocket);
+				ConnectionHandler handler = new ConnectionHandler(this, connectionSocket, watcher.getMap());
 				new Thread(handler).start();
 			}
 			this.welcomeSocket.close();

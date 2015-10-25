@@ -51,14 +51,10 @@ public class ConnectionHandler implements Runnable {
 	private Socket socket;
 	private HashMap<String, RequestHandler> handlers;
 	
-	public ConnectionHandler(Server server, Socket socket) {
+	public ConnectionHandler(Server server, Socket socket, HashMap<String, RequestHandler> requestHandlers) {
 		this.server = server;
 		this.socket = socket;
-		handlers = new HashMap<String, RequestHandler>();
-		handlers.put(Protocol.GET, new GetRequestHandler());
-		handlers.put(Protocol.POST, new PostRequestHandler());
-		handlers.put(Protocol.PUT, new PutRequestHandler());
-		handlers.put(Protocol.DELETE, new DeleteRequestHandler());
+		this.handlers = requestHandlers;
 	}
 	
 	/**
@@ -68,7 +64,17 @@ public class ConnectionHandler implements Runnable {
 		return socket;
 	}
 
+	public void addHandler(String key, RequestHandler handler) {
+		this.handlers.put(key,  handler);
+	}
 
+	public void removeHandler(String key, RequestHandler handler) {
+		this.handlers.put(key,  handler);
+	}
+	
+	public void modifyHandler(String key, RequestHandler handler) {
+		this.handlers.put(key,  handler);
+	}
 	/**
 	 * The entry point for connection handler. It first parses
 	 * incoming request and creates a {@link HttpRequest} object,
