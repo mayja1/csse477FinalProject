@@ -30,6 +30,8 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.nio.file.FileSystems;
 import java.nio.file.Path;
+import java.util.ArrayList;
+import java.util.List;
 import java.nio.file.*;
 
 /**
@@ -122,8 +124,8 @@ public class Server implements Runnable {
 	public void run() {
 		try {
 			this.welcomeSocket = new ServerSocket(port);
-			
-			new Thread(new DirectoryWatcher()).start();
+			DirectoryWatcher watcher = new DirectoryWatcher();
+			new Thread(watcher).start();
 			// Now keep welcoming new connections until stop flag is set to true
 			while(true) {
 				// Listen for incoming socket connection
@@ -135,7 +137,7 @@ public class Server implements Runnable {
 					break;
 				
 				// Create a handler for this incoming connection and start the handler in a new thread
-				ConnectionHandler handler = new ConnectionHandler(this, connectionSocket);
+				ConnectionHandler handler = new ConnectionHandler(this, connectionSocket, watcher.getMap());
 				new Thread(handler).start();
 			}
 			this.welcomeSocket.close();
@@ -173,61 +175,5 @@ public class Server implements Runnable {
 		if(this.welcomeSocket != null)
 			return this.welcomeSocket.isClosed();
 		return true;
-	}
-	
-	private class DirectoryWatcher implements Runnable {
-		WatchService watcher;
-		Path dir;
-		DirectoryWatcher() {
-			try {
-				watcher = FileSystems.getDefault().newWatchService();
-				dir = (new File("./plugins")).toPath();
-			    WatchKey key = dir.register(watcher,
-			    		StandardWatchEventKinds.ENTRY_CREATE,
-			    		StandardWatchEventKinds.ENTRY_DELETE,
-			    		StandardWatchEventKinds.ENTRY_MODIFY);
-			} catch (IOException x) {
-			    System.err.println(x);
-			}
-		}
-		/* (non-Javadoc)
-		 * @see java.lang.Runnable#run()
-		 */
-		@Override
-		public void run() {
-			while(true) {
-			WatchKey key;
-		    try {
-		        key = watcher.take();
-		    } catch (InterruptedException x) {
-		        return;
-		    }
-
-		    for (WatchEvent<?> event: key.pollEvents()) {
-		        WatchEvent.Kind<?> kind = event.kind();
-
-		        if(kind == StandardWatchEventKinds.ENTRY_CREATE) {
-		        	System.out.println("created");
-		        } else if (kind == StandardWatchEventKinds.ENTRY_DELETE) {
-		        	System.out.println("deleted");
-		        } else if (kind == StandardWatchEventKinds.ENTRY_MODIFY) {
-		        	System.out.println("modified");
-		        } else {
-		        	continue;
-		        }
-		        // The filename is the
-		        // context of the event.
-		        WatchEvent<Path> ev = (WatchEvent<Path>)event;
-		        Path filename = ev.context();
-		        System.out.println(filename);
-		    }
-
-		    // Reset the key -- this step is critical if you want to
-		    // receive further watch events.
-		    key.reset();
-			}
-			
-		}
-		
 	}
 }
