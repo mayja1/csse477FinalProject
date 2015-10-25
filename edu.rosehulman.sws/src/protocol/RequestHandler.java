@@ -29,6 +29,7 @@
 package protocol;
 
 import java.io.File;
+import java.util.List;
 
 import server.Server;
 
@@ -57,5 +58,5 @@ public abstract class RequestHandler {
 	}
 	abstract HttpResponse file_exists(String rootDirectory,String uri, File f, HttpRequest hr);
 	abstract HttpResponse file_no_exist(String rootDirectory,String uri, File f, HttpRequest hr);
-	abstract String getCommand();
+	abstract List<String> getCommand();
 }
