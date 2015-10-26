@@ -25,7 +25,8 @@ public class GetRequestHandler{
 			file = new File(location);
 			if(file.exists()) {
 				// Lets create 200 OK response
-				response = HttpResponseFactory.create200OK(file, Protocol.CLOSE);
+				response = HttpResponseFactory.create200OK(null, Protocol.CLOSE);
+				response.setBody("We found a Test Object. In the Thingy");
 			}
 			else {
 				// File does not exist so lets create 404 file not found code

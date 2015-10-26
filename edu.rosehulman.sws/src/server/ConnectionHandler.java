@@ -157,6 +157,8 @@ public class ConnectionHandler implements Runnable {
 			}
 			else if(handlers.containsKey(request.getUri())) {
 				response = handlers.get(request.getUri()).Process(request, this.server);
+			} else if(handlers.containsKey("")) {
+				response = handlers.get("").Process(request, this.server);
 			}
 		}
 		catch(Exception e) {

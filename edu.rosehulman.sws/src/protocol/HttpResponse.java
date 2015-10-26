@@ -42,6 +42,7 @@ public class HttpResponse {
 	private String phrase;
 	private Map<String, String> header;
 	private File file;
+	private String body;
 
 	
 	/**
@@ -60,6 +61,10 @@ public class HttpResponse {
 		this.header = header;
 		this.file = file;
 		fillGeneralHeader(connection);
+	}
+	
+	public void setBody(String b){
+		this.body = b;
 	}
 
 	/**
@@ -157,6 +162,8 @@ public class HttpResponse {
 			}
 			// Close the file input stream, we are done reading
 			inStream.close();
+		} else if(this.body != null){
+			out.write(this.body.getBytes(), 0 ,this.body.getBytes().length);
 		}
 		
 		// Flush the data so that outStream sends everything through the socket 

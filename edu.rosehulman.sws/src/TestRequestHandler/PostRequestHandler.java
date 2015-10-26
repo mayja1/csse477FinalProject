@@ -48,33 +48,17 @@ public class PostRequestHandler{
 	 * @see protocol.RequestHandler#file_exists(java.lang.String, java.lang.String, java.io.File)
 	 */
 	public static HttpResponse file_exists(String rootDirectory, String uri, File f, HttpRequest hr) {
-		try {
-			BufferedWriter bw = new BufferedWriter(new FileWriter(f, true));
-			bw.write(hr.getBody());
-			bw.close();
-			return HttpResponseFactory.create200OK(f, Protocol.CLOSE);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			return HttpResponseFactory.create400BadRequest(Protocol.CLOSE);
-		}
+		HttpResponse hrr = HttpResponseFactory.create200OK(null, Protocol.CLOSE);
+		hrr.setBody(hr.getBody().toString());
+		return hrr;
 	}
 
 	/* (non-Javadoc)
 	 * @see protocol.RequestHandler#file_no_exist(java.lang.String, java.lang.String, java.io.File)
 	 */
 	public static HttpResponse file_no_exist(String rootDirectory, String uri, File f, HttpRequest hr) {
-		try {
-			f.createNewFile();
-			BufferedWriter bw = new BufferedWriter(new FileWriter(f));
-			bw.write(hr.getBody());
-			bw.close();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			return HttpResponseFactory.create400BadRequest(Protocol.CLOSE);
-		}
-		// TODO Auto-generated method stub
-		return HttpResponseFactory.create201Created(f, Protocol.CLOSE);
+		HttpResponse hrr = HttpResponseFactory.create200OK(null, Protocol.CLOSE);
+		hrr.setBody(hr.getBody().toString());
+		return hrr;
 	}
 }
