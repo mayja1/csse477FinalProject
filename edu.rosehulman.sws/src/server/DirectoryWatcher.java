@@ -25,15 +25,21 @@
  * NY 13699-5722
  * http://clarkson.edu/~rupakhcr
  */
- 
+
 package server;
 
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.net.URLClassLoader;
+import java.nio.file.CopyOption;
+import java.nio.file.DirectoryNotEmptyException;
 import java.nio.file.FileSystems;
+import java.nio.file.Files;
+import java.nio.file.NoSuchFileException;
 import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.nio.file.StandardWatchEventKinds;
 import java.nio.file.WatchEvent;
 import java.nio.file.WatchKey;
@@ -47,129 +53,167 @@ import protocol.Protocol;
 import protocol.RequestHandler;
 
 public class DirectoryWatcher implements Runnable {
-	HashMap<String, RequestHandler> handlers;
+	HashMap<String, HashMap<String, RequestHandler>> handlers;
+	HashMap<String, String> filenamesToURI;
 	WatchService watcher;
-	Path dir;
+	Path loadedDir;
+	Path activeDir;
+
 	DirectoryWatcher() {
-		handlers = new HashMap<String, RequestHandler>();
+		handlers = new HashMap<String, HashMap<String, RequestHandler>>();
+		filenamesToURI = new HashMap<String, String>();
 		try {
 			watcher = FileSystems.getDefault().newWatchService();
-			dir = (new File("./plugins")).toPath();
-		    WatchKey key = dir.register(watcher,
-		    		StandardWatchEventKinds.ENTRY_CREATE,
-		    		StandardWatchEventKinds.ENTRY_DELETE,
-		    		StandardWatchEventKinds.ENTRY_MODIFY);
-		    loadInitialPlugins();
+			loadedDir = (new File("./plugins")).toPath();
+			activeDir = (new File("./activePlugins")).toPath();
+			WatchKey key = loadedDir.register(watcher, StandardWatchEventKinds.ENTRY_CREATE,
+					StandardWatchEventKinds.ENTRY_DELETE, StandardWatchEventKinds.ENTRY_MODIFY);
+			loadInitialPlugins();
 		} catch (IOException x) {
-		    System.err.println(x);
+			System.err.println(x);
 		}
 	}
-	/* (non-Javadoc)
+
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Runnable#run()
 	 */
 	@Override
 	public void run() {
-		while(true) {
-		WatchKey key;
-	    try {
-	        key = watcher.take();
-	    } catch (InterruptedException x) {
-	        return;
-	    }
+		while (true) {
+			WatchKey key;
+			try {
+				key = watcher.take();
+			} catch (InterruptedException x) {
+				return;
+			}
 
-	    for (WatchEvent<?> event: key.pollEvents()) {
-	        WatchEvent.Kind<?> kind = event.kind();
-	        WatchEvent<Path> ev = (WatchEvent<Path>)event;
-	        Path filename = ev.context();
-	        System.out.println(filename);
-	        Class c = loadClass(dir + "/" + filename);
-	        if(kind == StandardWatchEventKinds.ENTRY_CREATE) {
-	        		try {
-						RequestHandler h = (RequestHandler) c.newInstance();
-						for(String s: h.getCommand()){
-							handlers.put(s, h);
-						}
-					} catch (InstantiationException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					} catch (IllegalAccessException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-	        } else if (kind == StandardWatchEventKinds.ENTRY_DELETE) {
-	        	System.out.println("deleted");
-	        } else if (kind == StandardWatchEventKinds.ENTRY_MODIFY) {
-	        	System.out.println("modified");
-	        } else {
-	        	continue;
-	        }
-	        // The filename is the
-	        // context of the event.
-	        
-	    }
+			for (WatchEvent<?> event : key.pollEvents()) {
+				WatchEvent.Kind<?> kind = event.kind();
+				WatchEvent<Path> ev = (WatchEvent<Path>) event;
+				if (kind == StandardWatchEventKinds.ENTRY_CREATE) {
+					Path filename = ev.context();
+					System.out.println("Creating: " + filename);
+					handleCreateFile(filename.toString());
+				} else if (kind == StandardWatchEventKinds.ENTRY_DELETE) {
+					Path filename = ev.context();
+					System.out.println("Deleting: " + filename);
+					handleDeleteFile(filename.toString());
+				} else if (kind == StandardWatchEventKinds.ENTRY_MODIFY) {
+					/*
+					 * System.out.println("modified");
+					 * 
+					 * for (String s : h.getCommand()) { handlers.put(s, h); }
+					 */
 
-	    // Reset the key -- this step is critical if you want to
-	    // receive further watch events.
-	    key.reset();
+				} else {
+					continue;
+				}
+				// The filename is the
+				// context of the event.
+
+			}
+
+			// Reset the key -- this step is critical if you want to
+			// receive further watch events.
+			key.reset();
 		}
-		
+
 	}
+
 	/**
 	 * @return
 	 */
-	public HashMap<String, RequestHandler> getMap() {
+	public HashMap<String, HashMap<String, RequestHandler>> getMap() {
 		return handlers;
 	}
-	
-	public Class loadClass(String pathToJar) {
+
+	public RequestHandler loadClass(String pathToJar) {
 		try {
-		JarFile jarFile = new JarFile(pathToJar);
-		Enumeration<JarEntry> e = jarFile.entries();
+			JarFile jarFile = new JarFile(pathToJar);
+			Enumeration<JarEntry> e = jarFile.entries();
 
-		URL[] urls = { new URL("jar:file:" + pathToJar+"!/") };
-		URLClassLoader cl = URLClassLoader.newInstance(urls);
+			URL[] urls = { new URL("jar:file:" + pathToJar + "!/") };
+			URLClassLoader cl = URLClassLoader.newInstance(urls);
 
-		    while (e.hasMoreElements()) {
-		        JarEntry je = (JarEntry) e.nextElement();
-		        if(je.isDirectory() || !je.getName().endsWith(".class")){
-		            continue;
-		        }
-		    // -6 because of .class
-		    String className = je.getName().substring(0,je.getName().length()-6);
-		    className = className.replace('/', '.');
-		    Class c = cl.loadClass(className);
-		    return c;
+			while (e.hasMoreElements()) {
+				JarEntry je = (JarEntry) e.nextElement();
+				if (je.isDirectory() || !je.getName().endsWith(".class")) {
+					continue;
+				}
+				// -6 because of .class
+				String className = je.getName().substring(0, je.getName().length() - 6);
+				className = className.replace('/', '.');
+				Class c = cl.loadClass(className);
+				try {
+					if (c.newInstance() instanceof RequestHandler) {
+						RequestHandler h = (RequestHandler) c.newInstance();
+						cl.close();
+						return h;
+					}
+				} catch (Exception e2) {
+					continue;
+				}
 
-		}
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return null;
 	}
-	
+
 	public void loadInitialPlugins() {
-		File f = new File(dir.toString());
-		for(File file: f.listFiles()){
-			String path = "./plugins/" + file.getName();
+		File f = new File(loadedDir.toString());
+		for (File file : f.listFiles()) {
+			String path = "./activePlugins/" + file.getName();
 			System.out.println("file path" + path);
-			Class c = loadClass(path);
-			if(c != null) {
-	        		try {
-						RequestHandler h = (RequestHandler) c.newInstance();
-						for(String s: h.getCommand()){
-							System.out.println("adding: " + s);
-							handlers.put(s, h);
-						}
-					} catch (InstantiationException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					} catch (IllegalAccessException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-			} else {
-				System.out.println("Class was null");
+			RequestHandler h = loadClass(path);
+			HashMap<String, RequestHandler> tempHandlers = new HashMap<String, RequestHandler>();
+			for (String s : h.getCommand()) {
+				tempHandlers.put(s, h);
 			}
+			handlers.put(h.getURI(), tempHandlers);
+			filenamesToURI.put(file.getName(), h.getURI());
+		}
+	}
+
+	public void handleCreateFile(String filename) {
+		Path from = (new File(loadedDir + "/" + filename)).toPath();
+		Path to = (new File(activeDir + "/" + filename)).toPath();
+		CopyOption[] options = new CopyOption[] { StandardCopyOption.REPLACE_EXISTING,
+				StandardCopyOption.COPY_ATTRIBUTES };
+		try {
+			java.nio.file.Files.copy(from, to, options);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		RequestHandler h = loadClass(activeDir + "/" + filename);
+		HashMap<String, RequestHandler> tempHandlers = new HashMap<String, RequestHandler>();
+		for (String s : h.getCommand()) {
+			tempHandlers.put(s, h);
+		}
+		handlers.put(h.getURI(), tempHandlers);
+		filenamesToURI.put(filename.toString(), h.getURI());
+	}
+
+	public void handleDeleteFile(String filename) {
+		String uri = filenamesToURI.get(filename);
+		handlers.remove(uri);
+		filenamesToURI.remove(filename);
+
+		Path path = (new File(activeDir + "/" + filename)).toPath();
+		System.out.println(path);
+		try {
+			Files.delete(path);
+		} catch (NoSuchFileException x) {
+			System.err.format("%s: no such" + " file or directory%n", path);
+		} catch (DirectoryNotEmptyException x) {
+			System.err.format("%s not empty%n", path);
+		} catch (IOException x) {
+			// File permission problems are caught here.
+			System.err.println(x);
 		}
 	}
 }
