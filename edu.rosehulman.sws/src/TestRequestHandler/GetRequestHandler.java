@@ -1,6 +1,9 @@
 package TestRequestHandler;
 
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 
 import protocol.HttpRequest;
 import protocol.HttpResponse;
@@ -18,25 +21,17 @@ public class GetRequestHandler{
 	 */
 	public static HttpResponse file_exists(String rootDirectory,String uri, File file, HttpRequest hr) {
 		HttpResponse response = null;
-		//Exist_Fxn
-		if(file.isDirectory()) {
-			// Look for default index.html file in a directory
-			String location = rootDirectory + uri + System.getProperty("file.separator") + Protocol.DEFAULT_FILE;
-			file = new File(location);
-			if(file.exists()) {
-				// Lets create 200 OK response
-				response = HttpResponseFactory.create200OK(null, Protocol.CLOSE);
-				response.setBody("We found a Test Object. In the Thingy");
-			}
-			else {
-				// File does not exist so lets create 404 file not found code
-				response = HttpResponseFactory.create404NotFound(Protocol.CLOSE);
-			}
+		File f = new File("Testing");
+		try {
+			BufferedWriter bw = new BufferedWriter(new FileWriter(f));
+			String s = "We found a Test Object. In the Thingy";
+			bw.write(s.toCharArray());
+			response = HttpResponseFactory.create200OK(f, Protocol.CLOSE);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
-		else { // Its a file
-			// Lets create 200 OK response
-			response = HttpResponseFactory.create200OK(file, Protocol.CLOSE);
-		}
+
 		return response;
 	}
 
@@ -44,6 +39,18 @@ public class GetRequestHandler{
 	 * @see protocol.RequestHandler#file_no_exist()
 	 */
 	public static HttpResponse file_no_exist(String rootDirectory,String uri, File file, HttpRequest hr) {
-		return HttpResponseFactory.create404NotFound(Protocol.CLOSE);
+		HttpResponse response = null;
+		File f = new File("Testing");
+		try {
+			BufferedWriter bw = new BufferedWriter(new FileWriter(f));
+			String s = "We found a Test Object. In the Thingy";
+			bw.write(s.toCharArray());
+			response = HttpResponseFactory.create200OK(f, Protocol.CLOSE);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return response;
 	}
 }

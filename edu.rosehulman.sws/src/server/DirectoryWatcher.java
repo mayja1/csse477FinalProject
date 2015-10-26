@@ -189,7 +189,7 @@ public class DirectoryWatcher implements Runnable {
 			System.gc();
 		}
 		RequestHandler h = loadClass(activeDir + "/" + filename);
-		
+		System.out.println(h.getURI());
 		handlers.put(h.getURI(), h);
 		filenamesToURI.put(filename.toString(), h.getURI());
 	}

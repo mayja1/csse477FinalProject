@@ -34,6 +34,7 @@ import java.util.List;
 
 import protocol.HttpRequest;
 import protocol.HttpResponse;
+import protocol.HttpResponseFactory;
 import protocol.Protocol;
 import protocol.RequestHandler;
 

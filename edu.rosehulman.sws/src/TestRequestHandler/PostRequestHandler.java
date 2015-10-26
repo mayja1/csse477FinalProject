@@ -45,20 +45,40 @@ import protocol.Protocol;
 public class PostRequestHandler{
 
 	/* (non-Javadoc)
-	 * @see protocol.RequestHandler#file_exists(java.lang.String, java.lang.String, java.io.File)
+	 * @see protocol.RequestHandler#file_exists()
 	 */
-	public static HttpResponse file_exists(String rootDirectory, String uri, File f, HttpRequest hr) {
-		HttpResponse hrr = HttpResponseFactory.create200OK(null, Protocol.CLOSE);
-		hrr.setBody(hr.getBody().toString());
-		return hrr;
+	public static HttpResponse file_exists(String rootDirectory,String uri, File file, HttpRequest hr) {
+		HttpResponse response = null;
+		File f = new File("Testing");
+		try {
+			BufferedWriter bw = new BufferedWriter(new FileWriter(f));
+			String s = "We found a Test Object. In the Thingy";
+			bw.write(s.toCharArray());
+			response = HttpResponseFactory.create200OK(f, Protocol.CLOSE);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return response;
 	}
 
 	/* (non-Javadoc)
-	 * @see protocol.RequestHandler#file_no_exist(java.lang.String, java.lang.String, java.io.File)
+	 * @see protocol.RequestHandler#file_no_exist()
 	 */
-	public static HttpResponse file_no_exist(String rootDirectory, String uri, File f, HttpRequest hr) {
-		HttpResponse hrr = HttpResponseFactory.create200OK(null, Protocol.CLOSE);
-		hrr.setBody(hr.getBody().toString());
-		return hrr;
+	public static HttpResponse file_no_exist(String rootDirectory,String uri, File file, HttpRequest hr) {
+		HttpResponse response = null;
+		File f = new File("Testing");
+		try {
+			BufferedWriter bw = new BufferedWriter(new FileWriter(f));
+			String s = "We found a Test Object. In the Thingy";
+			bw.write(s.toCharArray());
+			response = HttpResponseFactory.create200OK(f, Protocol.CLOSE);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return response;
 	}
 }

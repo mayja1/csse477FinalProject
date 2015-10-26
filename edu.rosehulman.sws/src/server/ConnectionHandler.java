@@ -149,6 +149,7 @@ public class ConnectionHandler implements Runnable {
 			// Fill in the code to create a response for version mismatch.
 			// You may want to use constants such as Protocol.VERSION, Protocol.NOT_SUPPORTED_CODE, and more.
 			// You can check if the version matches as follows
+			System.out.println(request.getUri() + " is the URI");
 			if(!request.getVersion().equalsIgnoreCase(Protocol.VERSION)) {
 				// Here you checked that the "Protocol.VERSION" string is not equal to the  
 				// "request.version" string ignoring the case of the letters in both strings
@@ -156,8 +157,10 @@ public class ConnectionHandler implements Runnable {
 				response = HttpResponseFactory.create505NotSupported(Protocol.CLOSE);
 			}
 			else if(handlers.containsKey(request.getUri())) {
+				System.out.println("key");
 				response = handlers.get(request.getUri()).Process(request, this.server);
 			} else if(handlers.containsKey("")) {
+				System.out.println("no key");
 				response = handlers.get("").Process(request, this.server);
 			}
 		}
