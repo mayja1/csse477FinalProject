@@ -26,16 +26,11 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.Socket;
 import java.util.HashMap;
-
-import protocol.DeleteRequestHandler;
-import protocol.GetRequestHandler;
 import protocol.HttpRequest;
 import protocol.HttpResponse;
 import protocol.HttpResponseFactory;
-import protocol.PostRequestHandler;
 import protocol.Protocol;
 import protocol.ProtocolException;
-import protocol.PutRequestHandler;
 import protocol.RequestHandler;
 
 /**
