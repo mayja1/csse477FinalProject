@@ -90,4 +90,8 @@ public class PostRequestHandler extends RequestHandler {
 		return s;
 	}
 
+
+	public String getURI(){
+		return "";
+	}
 }

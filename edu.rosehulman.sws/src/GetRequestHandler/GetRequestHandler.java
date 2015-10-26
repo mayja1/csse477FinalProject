@@ -59,4 +59,7 @@ public class GetRequestHandler extends RequestHandler {
 		return s;
 	}
 
+	public String getURI(){
+		return "";
+	}
 }

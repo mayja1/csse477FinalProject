@@ -74,4 +74,8 @@ public class DeleteRequestHandler extends RequestHandler {
 		return cmdString;
 	}
 
+
+	public String getURI(){
+		return "";
+	}
 }

@@ -95,4 +95,8 @@ public class PutRequestHandler extends RequestHandler {
 		return s;
 	}
 
+
+	public String getURI(){
+		return "";
+	}
 }
