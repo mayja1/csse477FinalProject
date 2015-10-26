@@ -53,14 +53,14 @@ import protocol.Protocol;
 import protocol.RequestHandler;
 
 public class DirectoryWatcher implements Runnable {
-	HashMap<String, HashMap<String, RequestHandler>> handlers;
+	HashMap<String, RequestHandler> handlers;
 	HashMap<String, String> filenamesToURI;
 	WatchService watcher;
 	Path loadedDir;
 	Path activeDir;
 
 	DirectoryWatcher() {
-		handlers = new HashMap<String, HashMap<String, RequestHandler>>();
+		handlers = new HashMap<String, RequestHandler>();
 		filenamesToURI = new HashMap<String, String>();
 		try {
 			watcher = FileSystems.getDefault().newWatchService();
@@ -125,7 +125,7 @@ public class DirectoryWatcher implements Runnable {
 	/**
 	 * @return
 	 */
-	public HashMap<String, HashMap<String, RequestHandler>> getMap() {
+	public HashMap<String, RequestHandler> getMap() {
 		return handlers;
 	}
 
@@ -169,12 +169,7 @@ public class DirectoryWatcher implements Runnable {
 			String path = "./activePlugins/" + file.getName();
 			System.out.println("file path" + path);
 			RequestHandler h = loadClass(path);
-			HashMap<String, RequestHandler> tempHandlers = new HashMap<String, RequestHandler>();
-			for (String s : h.getCommand()) {
-				tempHandlers.put(s, h);
-			}
-			handlers.put(h.getURI(), tempHandlers);
-			filenamesToURI.put(file.getName(), h.getURI());
+			handlers.put(h.getURI(), h);
 		}
 	}
 
@@ -190,11 +185,8 @@ public class DirectoryWatcher implements Runnable {
 			e.printStackTrace();
 		}
 		RequestHandler h = loadClass(activeDir + "/" + filename);
-		HashMap<String, RequestHandler> tempHandlers = new HashMap<String, RequestHandler>();
-		for (String s : h.getCommand()) {
-			tempHandlers.put(s, h);
-		}
-		handlers.put(h.getURI(), tempHandlers);
+		
+		handlers.put(h.getURI(), h);
 		filenamesToURI.put(filename.toString(), h.getURI());
 	}
 
