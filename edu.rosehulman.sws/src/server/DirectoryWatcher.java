@@ -101,6 +101,9 @@ public class DirectoryWatcher implements Runnable {
 					System.out.println("Deleting: " + filename);
 					handleDeleteFile(filename.toString());
 				} else if (kind == StandardWatchEventKinds.ENTRY_MODIFY) {
+					/*Path filename = ev.context();
+					System.out.println("Modifying: " + filename);
+					handleCreateFile(filename.toString());
 					/*
 					 * System.out.println("modified");
 					 * 
@@ -154,6 +157,8 @@ public class DirectoryWatcher implements Runnable {
 					}
 				} catch (Exception e2) {
 					continue;
+				} finally {
+					System.gc();
 				}
 
 			}
@@ -166,10 +171,7 @@ public class DirectoryWatcher implements Runnable {
 	public void loadInitialPlugins() {
 		File f = new File(loadedDir.toString());
 		for (File file : f.listFiles()) {
-			String path = "./activePlugins/" + file.getName();
-			System.out.println("file path" + path);
-			RequestHandler h = loadClass(path);
-			handlers.put(h.getURI(), h);
+			handleCreateFile(file.getName());
 		}
 	}
 
@@ -183,6 +185,8 @@ public class DirectoryWatcher implements Runnable {
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		} finally {
+			System.gc();
 		}
 		RequestHandler h = loadClass(activeDir + "/" + filename);
 		
@@ -194,6 +198,7 @@ public class DirectoryWatcher implements Runnable {
 		String uri = filenamesToURI.get(filename);
 		handlers.remove(uri);
 		filenamesToURI.remove(filename);
+		System.gc();
 
 		Path path = (new File(activeDir + "/" + filename)).toPath();
 		System.out.println(path);
