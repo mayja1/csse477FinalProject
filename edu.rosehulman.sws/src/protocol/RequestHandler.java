@@ -56,7 +56,7 @@ public abstract class RequestHandler {
 		}
 		return response;
 	}
-	abstract HttpResponse file_exists(String rootDirectory,String uri, File f, HttpRequest hr);
-	abstract HttpResponse file_no_exist(String rootDirectory,String uri, File f, HttpRequest hr);
-	abstract List<String> getCommand();
+	protected abstract HttpResponse file_exists(String rootDirectory,String uri, File f, HttpRequest hr);
+	protected abstract HttpResponse file_no_exist(String rootDirectory,String uri, File f, HttpRequest hr);
+	protected abstract List<String> getCommand();
 }
