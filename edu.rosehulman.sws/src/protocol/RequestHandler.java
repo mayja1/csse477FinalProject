@@ -54,6 +54,9 @@ public abstract class RequestHandler {
 		else {
 			response = file_no_exist(rootDirectory, uri, file, h);
 		}
+		if(response == null){
+			return HttpResponseFactory.create400BadRequest(Protocol.CLOSE);
+		}
 		return response;
 	}
 	protected abstract HttpResponse file_exists(String rootDirectory,String uri, File f, HttpRequest hr);

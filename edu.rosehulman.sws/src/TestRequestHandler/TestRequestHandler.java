@@ -1,5 +1,5 @@
 /*
- * BaseSuperHandler.java
+ * TestRequestHandler.java
  * Oct 25, 2015
  *
  * Simple Web Server (SWS) for EE407/507 and CS455/555
@@ -26,7 +26,7 @@
  * http://clarkson.edu/~rupakhcr
  */
  
-package BaseRequestHandler;
+package TestRequestHandler;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -41,7 +41,7 @@ import protocol.RequestHandler;
  * 
  * @author Chandan R. Rupakheti (rupakhcr@clarkson.edu)
  */
-public class BaseSuperHandler extends RequestHandler{
+public class TestRequestHandler extends RequestHandler{
 
 	/* (non-Javadoc)
 	 * @see protocol.RequestHandler#file_exists(java.lang.String, java.lang.String, java.io.File, protocol.HttpRequest)
@@ -49,15 +49,12 @@ public class BaseSuperHandler extends RequestHandler{
 	@Override
 	protected HttpResponse file_exists(String rootDirectory, String uri,
 			File f, HttpRequest hr) {
+		// TODO Auto-generated method stub
 		switch(hr.getMethod().toUpperCase()){
 		case Protocol.GET:
 			return GetRequestHandler.file_exists(rootDirectory, uri, f, hr);
-		case Protocol.PUT:
-			return PutRequestHandler.file_exists(rootDirectory, uri, f, hr);
 		case Protocol.POST:
 			return PostRequestHandler.file_exists(rootDirectory, uri, f, hr);
-		case Protocol.DELETE:
-			return DeleteRequestHandler.file_exists(rootDirectory, uri, f, hr);
 		}
 		return null;
 	}
@@ -68,15 +65,12 @@ public class BaseSuperHandler extends RequestHandler{
 	@Override
 	protected HttpResponse file_no_exist(String rootDirectory, String uri,
 			File f, HttpRequest hr) {
+		// TODO Auto-generated method stub
 		switch(hr.getMethod().toUpperCase()){
 		case Protocol.GET:
 			return GetRequestHandler.file_no_exist(rootDirectory, uri, f, hr);
-		case Protocol.PUT:
-			return PutRequestHandler.file_no_exist(rootDirectory, uri, f, hr);
 		case Protocol.POST:
 			return PostRequestHandler.file_no_exist(rootDirectory, uri, f, hr);
-		case Protocol.DELETE:
-			return DeleteRequestHandler.file_no_exist(rootDirectory, uri, f, hr);
 		}
 		return null;
 	}
@@ -89,9 +83,7 @@ public class BaseSuperHandler extends RequestHandler{
 		// TODO Auto-generated method stub
 		List<String> s = new ArrayList<String>();
 		s.add(Protocol.GET);
-		s.add(Protocol.PUT);
 		s.add(Protocol.POST);
-		s.add(Protocol.DELETE);
 		return s;
 	}
 
@@ -101,8 +93,7 @@ public class BaseSuperHandler extends RequestHandler{
 	@Override
 	public String getURI() {
 		// TODO Auto-generated method stub
-		return "";
+		return "/Testing";
 	}
-	
 
 }

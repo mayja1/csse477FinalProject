@@ -155,8 +155,8 @@ public class ConnectionHandler implements Runnable {
 				// TODO: Fill in the rest of the code here
 				response = HttpResponseFactory.create505NotSupported(Protocol.CLOSE);
 			}
-			else if(handlers.containsKey(request.getMethod().toUpperCase())) {
-				response = handlers.get(request.getMethod().toUpperCase()).Process(request, this.server);
+			else if(handlers.containsKey(request.getUri())) {
+				response = handlers.get(request.getUri()).Process(request, this.server);
 			}
 		}
 		catch(Exception e) {
