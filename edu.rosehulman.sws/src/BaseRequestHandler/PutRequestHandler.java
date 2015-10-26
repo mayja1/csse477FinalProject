@@ -26,32 +26,28 @@
  * http://clarkson.edu/~rupakhcr
  */
  
-package PutRequestHandler;
+package BaseRequestHandler;
 
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 import protocol.HttpRequest;
 import protocol.HttpResponse;
 import protocol.HttpResponseFactory;
 import protocol.Protocol;
-import protocol.RequestHandler;
 
 /**
  * 
  * @author Chandan R. Rupakheti (rupakhcr@clarkson.edu)
  */
-public class PutRequestHandler extends RequestHandler {
+public class PutRequestHandler {
 
 	/* (non-Javadoc)
 	 * @see protocol.RequestHandler#file_exists(java.lang.String, java.lang.String, java.io.File, protocol.HttpRequest)
 	 */
-	@Override
-	protected HttpResponse file_exists(String rootDirectory, String uri, File f,
+	public static HttpResponse file_exists(String rootDirectory, String uri, File f,
 			HttpRequest hr) {
 		try {
 			f.delete();
@@ -71,8 +67,7 @@ public class PutRequestHandler extends RequestHandler {
 	/* (non-Javadoc)
 	 * @see protocol.RequestHandler#file_no_exist(java.lang.String, java.lang.String, java.io.File, protocol.HttpRequest)
 	 */
-	@Override
-	protected HttpResponse file_no_exist(String rootDirectory, String uri, File f,
+	public static HttpResponse file_no_exist(String rootDirectory, String uri, File f,
 			HttpRequest hr) {
 		try {
 			f.createNewFile();
@@ -86,17 +81,5 @@ public class PutRequestHandler extends RequestHandler {
 		}
 		// TODO Auto-generated method stub
 		return HttpResponseFactory.create201Created(f, Protocol.CLOSE);
-	}
-	
-	public List<String> getCommand() {
-		// TODO Auto-generated method stub
-		List<String> s = new ArrayList<String>();
-		s.add(Protocol.PUT);
-		return s;
-	}
-
-
-	public String getURI(){
-		return "";
 	}
 }

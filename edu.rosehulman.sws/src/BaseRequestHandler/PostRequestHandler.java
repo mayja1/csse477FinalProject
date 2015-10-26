@@ -26,32 +26,28 @@
  * http://clarkson.edu/~rupakhcr
  */
  
-package PostRequestHandler;
+package BaseRequestHandler;
 
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 import protocol.HttpRequest;
 import protocol.HttpResponse;
 import protocol.HttpResponseFactory;
 import protocol.Protocol;
-import protocol.RequestHandler;
 
 /**
  * 
  * @author Chandan R. Rupakheti (rupakhcr@clarkson.edu)
  */
-public class PostRequestHandler extends RequestHandler {
+public class PostRequestHandler{
 
 	/* (non-Javadoc)
 	 * @see protocol.RequestHandler#file_exists(java.lang.String, java.lang.String, java.io.File)
 	 */
-	@Override
-	protected HttpResponse file_exists(String rootDirectory, String uri, File f, HttpRequest hr) {
+	public static HttpResponse file_exists(String rootDirectory, String uri, File f, HttpRequest hr) {
 		try {
 			BufferedWriter bw = new BufferedWriter(new FileWriter(f, true));
 			bw.write(hr.getBody());
@@ -67,8 +63,7 @@ public class PostRequestHandler extends RequestHandler {
 	/* (non-Javadoc)
 	 * @see protocol.RequestHandler#file_no_exist(java.lang.String, java.lang.String, java.io.File)
 	 */
-	@Override
-	protected HttpResponse file_no_exist(String rootDirectory, String uri, File f, HttpRequest hr) {
+	public static HttpResponse file_no_exist(String rootDirectory, String uri, File f, HttpRequest hr) {
 		try {
 			f.createNewFile();
 			BufferedWriter bw = new BufferedWriter(new FileWriter(f));
@@ -81,17 +76,5 @@ public class PostRequestHandler extends RequestHandler {
 		}
 		// TODO Auto-generated method stub
 		return HttpResponseFactory.create201Created(f, Protocol.CLOSE);
-	}
-	
-	public List<String> getCommand() {
-		// TODO Auto-generated method stub
-		List<String> s = new ArrayList<String>();
-		s.add(Protocol.POST);
-		return s;
-	}
-
-
-	public String getURI(){
-		return "";
 	}
 }

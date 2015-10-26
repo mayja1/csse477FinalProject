@@ -26,29 +26,25 @@
  * http://clarkson.edu/~rupakhcr
  */
  
-package DeleteRequestHandler;
+package BaseRequestHandler;
 
 import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
 
 import protocol.HttpRequest;
 import protocol.HttpResponse;
 import protocol.HttpResponseFactory;
 import protocol.Protocol;
-import protocol.RequestHandler;
 
 /**
  * 
  * @author Chandan R. Rupakheti (rupakhcr@clarkson.edu)
  */
-public class DeleteRequestHandler extends RequestHandler {
+public class DeleteRequestHandler{
 
 	/* (non-Javadoc)
 	 * @see protocol.RequestHandler#file_exists(java.lang.String, java.lang.String, java.io.File, protocol.HttpRequest)
 	 */
-	@Override
-	protected HttpResponse file_exists(String rootDirectory, String uri, File f,
+	public static HttpResponse file_exists(String rootDirectory, String uri, File f,
 			HttpRequest hr) {
 		f.delete();
 		return HttpResponseFactory.create204NoContent(f,Protocol.CLOSE);
@@ -57,25 +53,9 @@ public class DeleteRequestHandler extends RequestHandler {
 	/* (non-Javadoc)
 	 * @see protocol.RequestHandler#file_no_exist(java.lang.String, java.lang.String, java.io.File, protocol.HttpRequest)
 	 */
-	@Override
-	protected HttpResponse file_no_exist(String rootDirectory, String uri, File f,
+	public static HttpResponse file_no_exist(String rootDirectory, String uri, File f,
 			HttpRequest hr) {
 		// TODO Auto-generated method stub
 		return HttpResponseFactory.create404NotFound(Protocol.CLOSE);
-	}
-
-	/* (non-Javadoc)
-	 * @see protocol.RequestHandler#getCommand()
-	 */
-	@Override
-	public List<String> getCommand() {
-		List<String> cmdString = new ArrayList<String>();
-		cmdString.add(Protocol.DELETE);
-		return cmdString;
-	}
-
-
-	public String getURI(){
-		return "";
 	}
 }
