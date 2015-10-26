@@ -70,13 +70,13 @@ public class BaseSuperHandler extends RequestHandler{
 	protected HttpResponse file_no_exist(String rootDirectory, String uri,
 			File f, HttpRequest hr) {
 		switch(hr.getMethod().toUpperCase()){
-		case "GET":
+		case Protocol.GET:
 			return GetRequestHandler.file_no_exist(rootDirectory, uri, f, hr);
-		case "PUT":
+		case Protocol.PUT:
 			return PutRequestHandler.file_no_exist(rootDirectory, uri, f, hr);
-		case "POST":
+		case Protocol.POST:
 			return PostRequestHandler.file_no_exist(rootDirectory, uri, f, hr);
-		case "DELETE":
+		case Protocol.DELETE:
 			return DeleteRequestHandler.file_no_exist(rootDirectory, uri, f, hr);
 		}
 		return HttpResponseFactory.create400BadRequest(Protocol.CLOSE);
