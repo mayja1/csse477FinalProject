@@ -52,7 +52,7 @@ public class GetRequestHandler extends RequestHandler {
 	/* (non-Javadoc)
 	 * @see protocol.RequestHandler#getCommand()
 	 */
-	protected List<String> getCommand() {
+	public List<String> getCommand() {
 		// TODO Auto-generated method stub
 		List<String> s = new ArrayList<String>();
 		s.add(Protocol.GET);
