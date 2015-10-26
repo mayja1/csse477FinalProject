@@ -1,0 +1,99 @@
+HTTP 1.1 Test Client by C.R. Rupakheti
+--------------------------------------------------------
+Connection Established!
+Request Sent. Waiting for response ...
+----------- Header ----------------
+HTTP/1.1 200 OK
+date : Sun Oct 18 15:41:59 EDT 2015
+server : SimpleWebServer(SWS)/1.0.0 (Windows 7/6.1/amd64)
+last-modified : Sun Oct 18 15:40:43 EDT 2015
+content-length : 0
+provider : Chandan R. Rupakheti
+connection : Close
+content-type : text/html
+------------- Body ---------------
+
+----------------------------------
+Socket Disconnected!
+Connection Established!
+Request Sent. Waiting for response ...
+----------- Header ----------------
+HTTP/1.1 404 Not Found
+date : Sun Oct 18 15:42:16 EDT 2015
+server : SimpleWebServer(SWS)/1.0.0 (Windows 7/6.1/amd64)
+provider : Chandan R. Rupakheti
+connection : Close
+------------- Body ---------------
+
+----------------------------------
+Socket Disconnected!
+Connection Established!
+Request Sent. Waiting for response ...
+----------- Header ----------------
+HTTP/1.1 200 OK
+date : Sun Oct 18 15:43:23 EDT 2015
+server : SimpleWebServer(SWS)/1.0.0 (Windows 7/6.1/amd64)
+last-modified : Sun Oct 18 15:43:23 EDT 2015
+content-length : 12
+provider : Chandan R. Rupakheti
+connection : Close
+content-type : text/html
+------------- Body ---------------
+Hello World!
+----------------------------------
+Socket Disconnected!
+Connection Established!
+Request Sent. Waiting for response ...
+----------- Header ----------------
+HTTP/1.1 200 OK
+date : Sun Oct 18 15:43:36 EDT 2015
+server : SimpleWebServer(SWS)/1.0.0 (Windows 7/6.1/amd64)
+last-modified : Sun Oct 18 15:43:36 EDT 2015
+content-length : 24
+provider : Chandan R. Rupakheti
+connection : Close
+content-type : text/html
+------------- Body ---------------
+Hello World!Hello World!
+----------------------------------
+Socket Disconnected!
+Connection Established!
+Request Sent. Waiting for response ...
+----------- Header ----------------
+HTTP/1.1 204 No Content
+date : Sun Oct 18 15:43:46 EDT 2015
+server : SimpleWebServer(SWS)/1.0.0 (Windows 7/6.1/amd64)
+provider : Chandan R. Rupakheti
+connection : Close
+------------- Body ---------------
+
+----------------------------------
+Socket Disconnected!
+Connection Established!
+Request Sent. Waiting for response ...
+----------- Header ----------------
+HTTP/1.1 201 Created
+date : Sun Oct 18 15:43:52 EDT 2015
+server : SimpleWebServer(SWS)/1.0.0 (Windows 7/6.1/amd64)
+provider : Chandan R. Rupakheti
+etag : index.html
+connection : Close
+------------- Body ---------------
+
+----------------------------------
+Socket Disconnected!
+Connection Established!
+Request Sent. Waiting for response ...
+----------- Header ----------------
+HTTP/1.1 200 OK
+date : Sun Oct 18 15:44:04 EDT 2015
+server : SimpleWebServer(SWS)/1.0.0 (Windows 7/6.1/amd64)
+last-modified : Sun Oct 18 15:43:52 EDT 2015
+content-length : 12
+provider : Chandan R. Rupakheti
+connection : Close
+content-type : text/html
+------------- Body ---------------
+Hello World!
+----------------------------------
+Socket Disconnected!

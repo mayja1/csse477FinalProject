@@ -1,0 +1,82 @@
+----------- Header ----------------
+GET /index.html HTTP/1.1
+if-modified-since: Sun, 25 Sep 2011 23:30:55 GMT
+accept-language: en-US,en;q=0.8
+host: localhost
+connection: Keep-Alive
+user-agent: HttpTestClient/1.0
+accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
+------------- Body ---------------
+----------------------------------
+
+----------- Header ----------------
+GET /web/index.html HTTP/1.1
+if-modified-since: Sun, 25 Sep 2011 23:30:55 GMT
+accept-language: en-US,en;q=0.8
+host: localhost
+connection: Keep-Alive
+user-agent: HttpTestClient/1.0
+accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
+------------- Body ---------------
+----------------------------------
+
+----------- Header ----------------
+PUT /index.html HTTP/1.1
+if-modified-since: Sun, 25 Sep 2011 23:30:55 GMT
+content-length: 12
+accept-language: en-US,en;q=0.8
+host: localhost
+connection: Keep-Alive
+user-agent: HttpTestClient/1.0
+accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
+------------- Body ---------------
+Hello World!----------------------------------
+
+----------- Header ----------------
+POST /index.html HTTP/1.1
+if-modified-since: Sun, 25 Sep 2011 23:30:55 GMT
+content-length: 12
+accept-language: en-US,en;q=0.8
+host: localhost
+connection: Keep-Alive
+user-agent: HttpTestClient/1.0
+accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
+------------- Body ---------------
+Hello World!----------------------------------
+
+----------- Header ----------------
+DELETE /index.html HTTP/1.1
+if-modified-since: Sun, 25 Sep 2011 23:30:55 GMT
+content-length: 12
+accept-language: en-US,en;q=0.8
+host: localhost
+connection: Keep-Alive
+user-agent: HttpTestClient/1.0
+accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
+------------- Body ---------------
+Hello World!----------------------------------
+
+----------- Header ----------------
+POST /index.html HTTP/1.1
+if-modified-since: Sun, 25 Sep 2011 23:30:55 GMT
+content-length: 12
+accept-language: en-US,en;q=0.8
+host: localhost
+connection: Keep-Alive
+user-agent: HttpTestClient/1.0
+accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
+------------- Body ---------------
+Hello World!----------------------------------
+
+----------- Header ----------------
+GET /index.html HTTP/1.1
+if-modified-since: Sun, 25 Sep 2011 23:30:55 GMT
+content-length: 12
+accept-language: en-US,en;q=0.8
+host: localhost
+connection: Keep-Alive
+user-agent: HttpTestClient/1.0
+accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
+------------- Body ---------------
+Hello World!----------------------------------
+

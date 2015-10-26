@@ -1,0 +1,668 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="13.3">
+  <zoom_level>8</zoom_level>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>832</x>
+      <y>224</y>
+      <w>168</w>
+      <h>72</h>
+    </coordinates>
+    <panel_attributes>Protocol
+--
+constants
+--
+String getServerInfo();</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1264</x>
+      <y>528</y>
+      <w>152</w>
+      <h>136</h>
+    </coordinates>
+    <panel_attributes>Server
+--
+synchronized void run();
+synchronized void stop();
+boolean isStoped();</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>968</x>
+      <y>680</y>
+      <w>120</w>
+      <h>64</h>
+    </coordinates>
+    <panel_attributes>WebServer
+--
+void initComponents();
+void addListeners();
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1080</x>
+      <y>688</y>
+      <w>176</w>
+      <h>24</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;.</panel_attributes>
+    <additional_attributes>10.0;10.0;200.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1240</x>
+      <y>680</y>
+      <w>120</w>
+      <h>56</h>
+    </coordinates>
+    <panel_attributes>SpringUtilities
+--
+static void makeGrid();
+Other Utility Methods</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1016</x>
+      <y>216</y>
+      <w>136</w>
+      <h>24</h>
+    </coordinates>
+    <panel_attributes>HttpResponseFactory</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1000</x>
+      <y>304</y>
+      <w>176</w>
+      <h>80</h>
+    </coordinates>
+    <panel_attributes>HttpResponse
+--
+File getFile();
+Map&lt;String, String&gt; getHeader();
+void put(); </panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1096</x>
+      <y>232</y>
+      <w>24</w>
+      <h>88</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.
+</panel_attributes>
+    <additional_attributes>10.0;90.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1256</x>
+      <y>400</y>
+      <w>144</w>
+      <h>56</h>
+    </coordinates>
+    <panel_attributes>ConnectionHandler
+--
+Socket getSocket();
+void run();</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1344</x>
+      <y>448</y>
+      <w>48</w>
+      <h>96</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+uses</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;100.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1168</x>
+      <y>328</y>
+      <w>176</w>
+      <h>88</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+uses</panel_attributes>
+    <additional_attributes>10.0;20.0;200.0;20.0;200.0;90.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1224</x>
+      <y>232</y>
+      <w>176</w>
+      <h>64</h>
+    </coordinates>
+    <panel_attributes>HttpRequest
+--
+String getVersion();
+Map&lt;String, String&gt; getHeader();
+HttpRequest read();</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1320</x>
+      <y>288</y>
+      <w>48</w>
+      <h>72</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+uses</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;70.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>696</x>
+      <y>376</y>
+      <w>104</w>
+      <h>32</h>
+    </coordinates>
+    <panel_attributes>ProtocolException</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>728</x>
+      <y>240</y>
+      <w>120</w>
+      <h>152</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+throws</panel_attributes>
+    <additional_attributes>10.0;170.0;10.0;10.0;130.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>368</x>
+      <y>416</y>
+      <w>456</w>
+      <h>72</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;RequestHandler&gt;&gt;
+--
+abstract HttpResponse file_exists(String rootDirectory,String uri, File f, HttpRequest hr);
+abstract HttpResponse file_no_exist(String rootDirectory,String uri, File f, HttpRequest hr);
+abstract String getURI();
+abstract List&lt;string&gt; getCommand();</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1064</x>
+      <y>432</y>
+      <w>176</w>
+      <h>40</h>
+    </coordinates>
+    <panel_attributes>CreatedHttpResponse
+--
+void fillInRestOfHeader();</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>840</x>
+      <y>432</y>
+      <w>160</w>
+      <h>40</h>
+    </coordinates>
+    <panel_attributes>OkHttpResponse
+--
+void fillInRestOfHeader();</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>960</x>
+      <y>536</y>
+      <w>176</w>
+      <h>48</h>
+    </coordinates>
+    <panel_attributes>NotModifiedHttpResponse
+--
+void fillInRestOfHeader();</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1120</x>
+      <y>376</y>
+      <w>24</w>
+      <h>72</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;70.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1032</x>
+      <y>376</y>
+      <w>24</w>
+      <h>176</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;200.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>896</x>
+      <y>328</y>
+      <w>120</w>
+      <h>120</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>130.0;10.0;10.0;10.0;10.0;130.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>608</x>
+      <y>136</y>
+      <w>296</w>
+      <h>152</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>350.0;10.0;10.0;10.0;10.0;170.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>712</x>
+      <y>568</y>
+      <w>200</w>
+      <h>56</h>
+    </coordinates>
+    <panel_attributes>PostRequestHandler
+--
+HttpResponse file_exists();
+HttpResponse file_no_exist();</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>480</x>
+      <y>568</y>
+      <w>200</w>
+      <h>56</h>
+    </coordinates>
+    <panel_attributes>GetRequestHandler
+--
+HttpResponse file_exists();
+HttpResponse file_no_exist();</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>608</x>
+      <y>656</y>
+      <w>200</w>
+      <h>56</h>
+    </coordinates>
+    <panel_attributes>PutRequestHandler
+--
+HttpResponse file_exists();
+HttpResponse file_no_exist();</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>360</x>
+      <y>656</y>
+      <w>200</w>
+      <h>56</h>
+    </coordinates>
+    <panel_attributes>DeleteRequestHandler
+--
+HttpResponse file_exists();
+HttpResponse file_no_exist();</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1080</x>
+      <y>712</y>
+      <w>176</w>
+      <h>32</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+uses</panel_attributes>
+    <additional_attributes>200.0;20.0;10.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLInterface</id>
+    <coordinates>
+      <x>344</x>
+      <y>232</y>
+      <w>272</w>
+      <h>104</h>
+    </coordinates>
+    <panel_attributes>HandlerPlugin
+--
+get_Tags()
+process()
+setHttpResponseBuilder(HttpResponseBuilder build)
+get_Operations();</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>472</x>
+      <y>328</y>
+      <w>24</w>
+      <h>104</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;110.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>472</x>
+      <y>64</y>
+      <w>992</w>
+      <h>192</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+Loaded from Plugin Jar in Plugin Folder</panel_attributes>
+    <additional_attributes>10.0;220.0;10.0;20.0;1220.0;20.0;1220.0;140.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLInterface</id>
+    <coordinates>
+      <x>888</x>
+      <y>112</y>
+      <w>128</w>
+      <h>56</h>
+    </coordinates>
+    <panel_attributes>HttpResponseBuilder
+--</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1008</x>
+      <y>136</y>
+      <w>104</w>
+      <h>96</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.</panel_attributes>
+    <additional_attributes>10.0;10.0;110.0;10.0;110.0;100.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLNote</id>
+    <coordinates>
+      <x>240</x>
+      <y>424</y>
+      <w>112</w>
+      <h>72</h>
+    </coordinates>
+    <panel_attributes>Note that this is mainly for establishing basic functionality from milestone 1.</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLNote</id>
+    <coordinates>
+      <x>360</x>
+      <y>136</y>
+      <w>112</w>
+      <h>96</h>
+    </coordinates>
+    <panel_attributes>The reason for these 3 methods is that it allows for a variety of potential Abstract Classes implementing functionality.</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>160</x>
+      <y>272</y>
+      <w>152</w>
+      <h>88</h>
+    </coordinates>
+    <panel_attributes>/BaseFile/
+--
+Put()
+Post()
+Get()
+Delete()
+abstract boolean isEditable()</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>304</x>
+      <y>312</y>
+      <w>80</w>
+      <h>24</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.</panel_attributes>
+    <additional_attributes>80.0;10.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>32</x>
+      <y>272</y>
+      <w>72</w>
+      <h>64</h>
+    </coordinates>
+    <panel_attributes>StaticFile
+--
+isEditable{
+	return false;
+}</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>96</x>
+      <y>296</y>
+      <w>80</w>
+      <h>24</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>80.0;10.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLNote</id>
+    <coordinates>
+      <x>176</x>
+      <y>208</y>
+      <w>112</w>
+      <h>56</h>
+    </coordinates>
+    <panel_attributes>Allows for files to be processed the same as full servlets</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>160</x>
+      <y>104</y>
+      <w>160</w>
+      <h>56</h>
+    </coordinates>
+    <panel_attributes>FileCreator
+--
+Post()
+Put()</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>152</x>
+      <y>152</y>
+      <w>24</w>
+      <h>136</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;150.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>312</x>
+      <y>144</y>
+      <w>56</w>
+      <h>120</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.</panel_attributes>
+    <additional_attributes>50.0;130.0;50.0;10.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1408</x>
+      <y>176</y>
+      <w>112</w>
+      <h>56</h>
+    </coordinates>
+    <panel_attributes>JarLoader
+--
+run();
+getAvailablilityMap();</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1392</x>
+      <y>224</y>
+      <w>72</w>
+      <h>224</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>70.0;10.0;70.0;260.0;10.0;260.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLNote</id>
+    <coordinates>
+      <x>1336</x>
+      <y>120</y>
+      <w>112</w>
+      <h>56</h>
+    </coordinates>
+    <panel_attributes>Thread that monitors the plugin folder and manages plugin availability</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLPackage</id>
+    <coordinates>
+      <x>200</x>
+      <y>512</y>
+      <w>736</w>
+      <h>208</h>
+    </coordinates>
+    <panel_attributes>EmptyPackage
+--</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>216</x>
+      <y>568</y>
+      <w>128</w>
+      <h>56</h>
+    </coordinates>
+    <panel_attributes>SuperRequestHandler
+--</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>336</x>
+      <y>480</y>
+      <w>248</w>
+      <h>128</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>290.0;10.0;290.0;90.0;60.0;90.0;60.0;140.0;10.0;140.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>336</x>
+      <y>592</y>
+      <w>160</w>
+      <h>32</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+contained in</panel_attributes>
+    <additional_attributes>10.0;20.0;180.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>432</x>
+      <y>600</y>
+      <w>192</w>
+      <h>104</h>
+    </coordinates>
+    <panel_attributes>contained in</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;50.0;200.0;50.0;200.0;110.0;220.0;110.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>584</x>
+      <y>616</y>
+      <w>232</w>
+      <h>40</h>
+    </coordinates>
+    <panel_attributes/>
+    <additional_attributes>10.0;30.0;270.0;30.0;270.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>400</x>
+      <y>600</y>
+      <w>24</w>
+      <h>72</h>
+    </coordinates>
+    <panel_attributes/>
+    <additional_attributes>10.0;10.0;10.0;70.0</additional_attributes>
+  </element>
+</diagram>
