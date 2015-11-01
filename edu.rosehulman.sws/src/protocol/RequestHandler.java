@@ -37,7 +37,7 @@ import server.Server;
  * 
  * @author Chandan R. Rupakheti (rupakhcr@clarkson.edu)
  */
-public abstract class RequestHandler {
+public abstract class RequestHandler{
 	public HttpResponse Process(HttpRequest h, Server s){
 		HttpResponse response = null;
 		// Handling GET request here
