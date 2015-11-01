@@ -48,6 +48,7 @@ public class Server implements Runnable {
 	
 	private long connections;
 	private long serviceTime;
+	private int lambda = 100;
 	
 	private WebServer window;
 	/**
@@ -137,6 +138,10 @@ public class Server implements Runnable {
 					break;
 				
 				// Create a handler for this incoming connection and start the handler in a new thread
+				if(Thread.activeCount() > lambda){
+					System.out.println("Culling new connection");
+					continue;
+				}
 				ConnectionHandler handler = new ConnectionHandler(this, connectionSocket, watcher.getMap());
 				new Thread(handler).start();
 			}
