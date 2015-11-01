@@ -42,7 +42,13 @@ import protocol.RequestHandler;
  * @author Chandan R. Rupakheti (rupakhcr@clarkson.edu)
  */
 public class BaseSuperHandler extends RequestHandler{
-
+	final static String guid = "0845bc29-a300-480e-a839-34672c76f84e";
+	
+	@Override
+	public String getGUID(){
+		return guid;
+	}
+	
 	/* (non-Javadoc)
 	 * @see protocol.RequestHandler#file_exists(java.lang.String, java.lang.String, java.io.File, protocol.HttpRequest)
 	 */

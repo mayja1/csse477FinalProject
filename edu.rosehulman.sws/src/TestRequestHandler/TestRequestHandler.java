@@ -34,7 +34,6 @@ import java.util.List;
 
 import protocol.HttpRequest;
 import protocol.HttpResponse;
-import protocol.HttpResponseFactory;
 import protocol.Protocol;
 import protocol.RequestHandler;
 
@@ -44,6 +43,8 @@ import protocol.RequestHandler;
  */
 public class TestRequestHandler extends RequestHandler{
 
+	final static String guid = "3844d18b-bbe8-4c33-bfc0-85b8e0183ef8";
+	
 	/* (non-Javadoc)
 	 * @see protocol.RequestHandler#file_exists(java.lang.String, java.lang.String, java.io.File, protocol.HttpRequest)
 	 */
@@ -96,5 +97,9 @@ public class TestRequestHandler extends RequestHandler{
 		// TODO Auto-generated method stub
 		return "/Testing";
 	}
-
+	
+	@Override
+	public String getGUID(){
+		return guid;
+	}
 }

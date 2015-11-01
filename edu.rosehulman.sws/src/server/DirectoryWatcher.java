@@ -28,7 +28,9 @@
 
 package server;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileReader;
 import java.io.IOException;
 import java.net.URL;
 import java.net.URLClassLoader;
@@ -58,6 +60,7 @@ public class DirectoryWatcher implements Runnable {
 	WatchService watcher;
 	Path loadedDir;
 	Path activeDir;
+	HashMap<String, Boolean> guids = new HashMap<String, Boolean>();
 
 	DirectoryWatcher() {
 		handlers = new HashMap<String, RequestHandler>();
@@ -68,12 +71,29 @@ public class DirectoryWatcher implements Runnable {
 			activeDir = (new File("./activePlugins")).toPath();
 			WatchKey key = loadedDir.register(watcher, StandardWatchEventKinds.ENTRY_CREATE,
 					StandardWatchEventKinds.ENTRY_DELETE, StandardWatchEventKinds.ENTRY_MODIFY);
+			loadGuids();
 			loadInitialPlugins();
 		} catch (IOException x) {
 			System.err.println(x);
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
 	}
 
+	public void loadGuids(){
+		String s = "";
+		try {
+			File f = new File("src/Server/ok_GUIDS.txt");
+			BufferedReader fr = new BufferedReader(new FileReader(f));
+			while((s = fr.readLine()) != null){
+				guids.put(s, false);
+			}
+			fr.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -95,7 +115,13 @@ public class DirectoryWatcher implements Runnable {
 				if (kind == StandardWatchEventKinds.ENTRY_CREATE) {
 					Path filename = ev.context();
 					System.out.println("Creating: " + filename);
-					handleCreateFile(filename.toString());
+					try{
+						handleCreateFile(filename.toString());
+					} catch(Exception e) {
+						File f = new File(filename.toString());
+						f.delete();
+						System.out.println("Malformed Jar or Failed Load of Classfile at: " + filename.toString());
+					}
 				} else if (kind == StandardWatchEventKinds.ENTRY_DELETE) {
 					Path filename = ev.context();
 					System.out.println("Deleting: " + filename);
@@ -168,14 +194,14 @@ public class DirectoryWatcher implements Runnable {
 		return null;
 	}
 
-	public void loadInitialPlugins() {
+	public void loadInitialPlugins() throws Exception {
 		File f = new File(loadedDir.toString());
 		for (File file : f.listFiles()) {
 			handleCreateFile(file.getName());
 		}
 	}
 
-	public void handleCreateFile(String filename) {
+	public void handleCreateFile(String filename) throws Exception {
 		Path from = (new File(loadedDir + "/" + filename)).toPath();
 		Path to = (new File(activeDir + "/" + filename)).toPath();
 		CopyOption[] options = new CopyOption[] { StandardCopyOption.REPLACE_EXISTING,
@@ -190,6 +216,15 @@ public class DirectoryWatcher implements Runnable {
 		}
 		RequestHandler h = loadClass(activeDir + "/" + filename);
 		System.out.println(h.getURI());
+		if(!this.guids.containsKey(h.getGUID())){
+			File f = new File(loadedDir + "/" + filename);
+			f.delete();
+			f = new File(activeDir + "/" + filename);
+			f.delete();
+			throw new Exception("This class is invalid as its guid is not present");
+		} else {
+			this.guids.put(h.getGUID(), true);
+		}
 		handlers.put(h.getURI(), h);
 		filenamesToURI.put(filename.toString(), h.getURI());
 	}

@@ -63,4 +63,5 @@ public abstract class RequestHandler {
 	protected abstract HttpResponse file_no_exist(String rootDirectory,String uri, File f, HttpRequest hr);
 	public abstract List<String> getCommand();
 	public abstract String getURI();
+	public abstract String getGUID();
 }

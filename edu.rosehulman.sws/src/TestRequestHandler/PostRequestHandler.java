@@ -51,9 +51,10 @@ public class PostRequestHandler{
 		HttpResponse response = null;
 		File f = new File("Testing");
 		try {
-			BufferedWriter bw = new BufferedWriter(new FileWriter(f));
+			BufferedWriter bw = new BufferedWriter(new FileWriter(f,true));
 			String s = "We found a Test Object. In the Thingy";
 			bw.write(s.toCharArray());
+			bw.close();
 			response = HttpResponseFactory.create200OK(f, Protocol.CLOSE);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
@@ -70,9 +71,10 @@ public class PostRequestHandler{
 		HttpResponse response = null;
 		File f = new File("Testing");
 		try {
-			BufferedWriter bw = new BufferedWriter(new FileWriter(f));
+			BufferedWriter bw = new BufferedWriter(new FileWriter(f,true));
 			String s = "We found a Test Object. In the Thingy";
 			bw.write(s.toCharArray());
+			bw.close();
 			response = HttpResponseFactory.create200OK(f, Protocol.CLOSE);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block

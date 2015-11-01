@@ -26,6 +26,7 @@ public class GetRequestHandler{
 			BufferedWriter bw = new BufferedWriter(new FileWriter(f));
 			String s = "We found a Test Object. In the Thingy";
 			bw.write(s.toCharArray());
+			bw.close();
 			response = HttpResponseFactory.create200OK(f, Protocol.CLOSE);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
@@ -45,6 +46,7 @@ public class GetRequestHandler{
 			BufferedWriter bw = new BufferedWriter(new FileWriter(f));
 			String s = "We found a Test Object. In the Thingy";
 			bw.write(s.toCharArray());
+			bw.close();
 			response = HttpResponseFactory.create200OK(f, Protocol.CLOSE);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
