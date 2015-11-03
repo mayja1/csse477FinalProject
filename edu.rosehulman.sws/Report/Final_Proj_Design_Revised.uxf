@@ -178,7 +178,7 @@ uses</panel_attributes>
     <id>UMLClass</id>
     <coordinates>
       <x>528</x>
-      <y>328</y>
+      <y>296</y>
       <w>104</w>
       <h>32</h>
     </coordinates>
@@ -191,26 +191,27 @@ uses</panel_attributes>
       <x>560</x>
       <y>192</y>
       <w>120</w>
-      <h>152</h>
+      <h>120</h>
     </coordinates>
     <panel_attributes>lt=&lt;-
 throws</panel_attributes>
-    <additional_attributes>10.0;170.0;10.0;10.0;130.0;10.0</additional_attributes>
+    <additional_attributes>10.0;130.0;10.0;10.0;130.0;10.0</additional_attributes>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
       <x>200</x>
-      <y>368</y>
-      <w>456</w>
-      <h>72</h>
+      <y>352</y>
+      <w>464</w>
+      <h>88</h>
     </coordinates>
     <panel_attributes>&lt;&lt;RequestHandler&gt;&gt;
 --
 abstract HttpResponse file_exists(String rootDirectory,String uri, File f, HttpRequest hr);
 abstract HttpResponse file_no_exist(String rootDirectory,String uri, File f, HttpRequest hr);
 abstract String getURI();
-abstract List&lt;string&gt; getCommand();</panel_attributes>
+abstract List&lt;string&gt; getCommand();
+abstract String getGUID();</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
