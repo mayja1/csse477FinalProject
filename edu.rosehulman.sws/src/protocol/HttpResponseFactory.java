@@ -34,6 +34,19 @@ import java.util.HashMap;
  * @author Chandan R. Rupakheti (rupakhet@rose-hulman.edu)
  */
 public class HttpResponseFactory {
+
+	/*
+	 * Header add Access-Control-Allow-Origin "*"
+	 * Header add Access-Control-Allow-Headers "origin, x-requested-with, x-http-method-override, content-type"
+	 * Header add Access-Control-Allow-Methods "PUT, GET, POST, DELETE, OPTIONS"
+	 */
+	
+	private static final HashMap<String, String> tokens = new HashMap<String, String>();
+	static {
+		tokens.put("Access-Control-Allow-Origin","*");
+		tokens.put("Access-Control-Allow-Headers", "origin, x-requested-with, x-http-method-override, content-type");
+		tokens.put("Access-Control-Allow-Methods", "PUT, GET, POST, DELETE");
+	}
 	/**
 	 * Convenience method for adding general header to the supplied response object.
 	 * 
@@ -52,7 +65,7 @@ public class HttpResponseFactory {
 	 */
 	public static HttpResponse create200OK(File file, String connection) {
 		return new OkHttpResponse(Protocol.VERSION, Protocol.OK_CODE, 
-				Protocol.OK_TEXT, new HashMap<String, String>(), file, connection);
+				Protocol.OK_TEXT, tokens, file, connection);
 	}
 	
 	/**
@@ -65,7 +78,7 @@ public class HttpResponseFactory {
 	 */
 	public static HttpResponse create201Created(File file, String connection) {
 		return new CreatedHttpResponse(Protocol.VERSION, Protocol.CREATED_CODE, 
-				Protocol.CREATED_TEXT, new HashMap<String, String>(), file, connection);
+				Protocol.CREATED_TEXT, tokens, file, connection);
 	}
 	
 	/**
@@ -78,7 +91,7 @@ public class HttpResponseFactory {
 	 */
 	public static HttpResponse create204NoContent(File file, String connection) {
 		return new HttpResponse(Protocol.VERSION, Protocol.NO_CONTENT_CODE, 
-				Protocol.NO_CONTENT_TEXT, new HashMap<String, String>(), file, connection);
+				Protocol.NO_CONTENT_TEXT, tokens, file, connection);
 	}
 	
 	/**
@@ -89,7 +102,7 @@ public class HttpResponseFactory {
 	 */
 	public static HttpResponse create400BadRequest(String connection) {
 		return new HttpResponse(Protocol.VERSION, Protocol.BAD_REQUEST_CODE, 
-				Protocol.BAD_REQUEST_TEXT, new HashMap<String, String>(), null, connection);
+				Protocol.BAD_REQUEST_TEXT, tokens, null, connection);
 		
 	}
 	
@@ -101,7 +114,7 @@ public class HttpResponseFactory {
 	 */
 	public static HttpResponse create404NotFound(String connection) {
 		return new HttpResponse(Protocol.VERSION, Protocol.NOT_FOUND_CODE, 
-				Protocol.NOT_FOUND_TEXT, new HashMap<String, String>(), null, connection);	
+				Protocol.NOT_FOUND_TEXT, tokens, null, connection);	
 	}
 	
 	/**
@@ -112,7 +125,7 @@ public class HttpResponseFactory {
 	 */
 	public static HttpResponse create505NotSupported(String connection) {
 		return new HttpResponse(Protocol.VERSION, Protocol.NOT_SUPPORTED_CODE, 
-				Protocol.NOT_SUPPORTED_TEXT, new HashMap<String, String>(), null, connection);
+				Protocol.NOT_SUPPORTED_TEXT,tokens, null, connection);
 	}
 	
 	/**
@@ -123,6 +136,6 @@ public class HttpResponseFactory {
 	 */
 	public static HttpResponse create304NotModified(String connection) {
 		return new HttpResponse(Protocol.VERSION, Protocol.NOT_MODIFIED_CODE, 
-				Protocol.NOT_MODIFIED_TEXT, new HashMap<String, String>(), null, connection);
+				Protocol.NOT_MODIFIED_TEXT, tokens, null, connection);
 	}
 }

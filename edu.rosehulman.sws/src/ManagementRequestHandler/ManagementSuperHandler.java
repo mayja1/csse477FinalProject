@@ -1,6 +1,6 @@
 /*
- * BaseSuperHandler.java
- * Oct 25, 2015
+ * ManagementSuperHandler.java
+ * Nov 3, 2015
  *
  * Simple Web Server (SWS) for EE407/507 and CS455/555
  * 
@@ -26,7 +26,7 @@
  * http://clarkson.edu/~rupakhcr
  */
  
-package BaseRequestHandler;
+package ManagementRequestHandler;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -41,39 +41,16 @@ import protocol.RequestHandler;
  * 
  * @author Chandan R. Rupakheti (rupakhcr@clarkson.edu)
  */
-public class BaseSuperHandler extends RequestHandler{
-	final static String guid = "0845bc29-a300-480e-a839-34672c76f84e";
-	
-	@Override
-	public String getGUID(){
-		return guid;
-	}
-	
+public class ManagementSuperHandler extends RequestHandler {
+
 	/* (non-Javadoc)
 	 * @see protocol.RequestHandler#file_exists(java.lang.String, java.lang.String, java.io.File, protocol.HttpRequest)
 	 */
 	@Override
 	protected HttpResponse file_exists(String rootDirectory, String uri,
-			File f, HttpRequest hr) {
-		switch(hr.getMethod().toUpperCase()){
-		case Protocol.GET:
-			return GetRequestHandler.file_exists(rootDirectory, uri, f, hr);
-		case Protocol.PUT:
-			return PutRequestHandler.file_exists(rootDirectory, uri, f, hr);
-		case Protocol.POST:
-			return PostRequestHandler.file_exists(rootDirectory, uri, f, hr);
-		case Protocol.DELETE:
-			return DeleteRequestHandler.file_exists(rootDirectory, uri, f, hr);
-		}
-		return null;
-	}
-
-	/* (non-Javadoc)
-	 * @see protocol.RequestHandler#file_no_exist(java.lang.String, java.lang.String, java.io.File, protocol.HttpRequest)
-	 */
-	@Override
-	protected HttpResponse file_no_exist(String rootDirectory, String uri,
-			File f, HttpRequest hr) {
+			File f, HttpRequest hr) 
+	{
+		System.out.println(hr.getMethod().toUpperCase());
 		HttpResponse hp = null;
 		switch(hr.getMethod().toUpperCase()){
 		case Protocol.GET:
@@ -82,11 +59,24 @@ public class BaseSuperHandler extends RequestHandler{
 		case Protocol.PUT:
 			hp = PutRequestHandler.file_no_exist(rootDirectory, uri, f, hr);
 			break;
-		case Protocol.POST:
-			hp = PostRequestHandler.file_no_exist(rootDirectory, uri, f, hr);
+		}
+		return hp;
+	}
+
+	/* (non-Javadoc)
+	 * @see protocol.RequestHandler#file_no_exist(java.lang.String, java.lang.String, java.io.File, protocol.HttpRequest)
+	 */
+	@Override
+	protected HttpResponse file_no_exist(String rootDirectory, String uri,
+			File f, HttpRequest hr) {
+		System.out.println(hr.getMethod().toUpperCase());
+		HttpResponse hp = null;
+		switch(hr.getMethod().toUpperCase()){
+		case Protocol.GET:
+			hp = GetRequestHandler.file_no_exist(rootDirectory, uri, f, hr);
 			break;
-		case Protocol.DELETE:
-			hp = DeleteRequestHandler.file_no_exist(rootDirectory, uri, f, hr);
+		case Protocol.PUT:
+			hp = PutRequestHandler.file_no_exist(rootDirectory, uri, f, hr);
 			break;
 		}
 		return hp;
@@ -101,8 +91,6 @@ public class BaseSuperHandler extends RequestHandler{
 		List<String> s = new ArrayList<String>();
 		s.add(Protocol.GET);
 		s.add(Protocol.PUT);
-		s.add(Protocol.POST);
-		s.add(Protocol.DELETE);
 		return s;
 	}
 
@@ -112,8 +100,16 @@ public class BaseSuperHandler extends RequestHandler{
 	@Override
 	public String getURI() {
 		// TODO Auto-generated method stub
-		return "";
+		return "/manage";
 	}
-	
+
+	/* (non-Javadoc)
+	 * @see protocol.RequestHandler#getGUID()
+	 */
+	@Override
+	public String getGUID() {
+		// TODO Auto-generated method stub
+		return "b9e0a9ba-d670-45f2-9cb8-94df2325a985";
+	}
 
 }

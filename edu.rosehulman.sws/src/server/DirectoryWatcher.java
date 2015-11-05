@@ -40,7 +40,6 @@ import java.nio.file.FileSystems;
 import java.nio.file.Files;
 import java.nio.file.NoSuchFileException;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.nio.file.StandardWatchEventKinds;
 import java.nio.file.WatchEvent;
@@ -51,7 +50,6 @@ import java.util.HashMap;
 import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
 
-import protocol.Protocol;
 import protocol.RequestHandler;
 
 public class DirectoryWatcher implements Runnable {
@@ -69,6 +67,7 @@ public class DirectoryWatcher implements Runnable {
 			watcher = FileSystems.getDefault().newWatchService();
 			loadedDir = (new File("./plugins")).toPath();
 			activeDir = (new File("./activePlugins")).toPath();
+			@SuppressWarnings("unused")
 			WatchKey key = loadedDir.register(watcher, StandardWatchEventKinds.ENTRY_CREATE,
 					StandardWatchEventKinds.ENTRY_DELETE, StandardWatchEventKinds.ENTRY_MODIFY);
 			loadGuids();
@@ -111,6 +110,7 @@ public class DirectoryWatcher implements Runnable {
 
 			for (WatchEvent<?> event : key.pollEvents()) {
 				WatchEvent.Kind<?> kind = event.kind();
+				@SuppressWarnings("unchecked")
 				WatchEvent<Path> ev = (WatchEvent<Path>) event;
 				if (kind == StandardWatchEventKinds.ENTRY_CREATE) {
 					Path filename = ev.context();
@@ -174,7 +174,7 @@ public class DirectoryWatcher implements Runnable {
 				// -6 because of .class
 				String className = je.getName().substring(0, je.getName().length() - 6);
 				className = className.replace('/', '.');
-				Class c = cl.loadClass(className);
+				Class<?> c = cl.loadClass(className);
 				try {
 					if (c.newInstance() instanceof RequestHandler) {
 						RequestHandler h = (RequestHandler) c.newInstance();
@@ -188,6 +188,7 @@ public class DirectoryWatcher implements Runnable {
 				}
 
 			}
+			jarFile.close();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
