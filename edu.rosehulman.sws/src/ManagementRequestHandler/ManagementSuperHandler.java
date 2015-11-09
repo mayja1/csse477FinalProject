@@ -56,9 +56,6 @@ public class ManagementSuperHandler extends RequestHandler {
 		case Protocol.GET:
 			hp = GetRequestHandler.file_no_exist(rootDirectory, uri, f, hr);
 			break;
-		case Protocol.PUT:
-			hp = PutRequestHandler.file_no_exist(rootDirectory, uri, f, hr);
-			break;
 		}
 		return hp;
 	}
@@ -74,9 +71,6 @@ public class ManagementSuperHandler extends RequestHandler {
 		switch(hr.getMethod().toUpperCase()){
 		case Protocol.GET:
 			hp = GetRequestHandler.file_no_exist(rootDirectory, uri, f, hr);
-			break;
-		case Protocol.PUT:
-			hp = PutRequestHandler.file_no_exist(rootDirectory, uri, f, hr);
 			break;
 		}
 		return hp;

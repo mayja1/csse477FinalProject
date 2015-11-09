@@ -46,6 +46,7 @@ function put_file() {
             document.getElementById("loaded_file").value = str;
         },
         failure,
+        "PUT",
         document.getElementById("loaded_file").value
     )
 

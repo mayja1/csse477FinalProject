@@ -171,6 +171,10 @@ public class HttpRequest {
 			reader.read(request.body);
 		}
 		
+		if(request.method.equals(Protocol.OPTIONS)) {
+			System.out.println("GOT AN OPTIONS FLAG");
+			request.method = request.header.get(Protocol.REQUEST_METHOD);
+		}
 		return request;
 	}
 	
