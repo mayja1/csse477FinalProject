@@ -54,7 +54,7 @@ public class ManagementSuperHandler extends RequestHandler {
 		HttpResponse hp = null;
 		switch(hr.getMethod().toUpperCase()){
 		case Protocol.GET:
-			hp = GetRequestHandler.file_no_exist(rootDirectory, uri, f, hr);
+			hp = GetRequestHandler.file_exists(rootDirectory, uri, f, hr);
 			break;
 		}
 		return hp;
@@ -84,7 +84,6 @@ public class ManagementSuperHandler extends RequestHandler {
 		// TODO Auto-generated method stub
 		List<String> s = new ArrayList<String>();
 		s.add(Protocol.GET);
-		s.add(Protocol.PUT);
 		return s;
 	}
 

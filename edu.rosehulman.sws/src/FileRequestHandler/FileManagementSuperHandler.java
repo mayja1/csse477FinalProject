@@ -29,6 +29,7 @@
 package FileRequestHandler;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -54,12 +55,18 @@ public class FileManagementSuperHandler extends RequestHandler {
 		HttpResponse hp = null;
 		switch(hr.getMethod().toUpperCase()){
 		case Protocol.GET:
-			hp = FileGetRequestHandler.file_no_exist(rootDirectory, uri, f, hr);
+			hp = FileGetRequestHandler.file_exists(rootDirectory, uri, f, hr);
 			break;
 		case Protocol.PUT:
-			hp = FilePutRequestHandler.file_no_exist(rootDirectory, uri, f, hr);
+			hp = FilePutRequestHandler.file_exists(rootDirectory, uri, f, hr);
 			break;
-		}
+		case Protocol.DELETE:
+			hp = FileDeleteRequestHandler.file_exists(rootDirectory, uri, f, hr);
+			break;
+		case Protocol.POST:
+			hp = FilePostRequestHandler.file_exists(rootDirectory, uri, f, hr);
+			break;
+		}	
 		return hp;
 	}
 
@@ -78,6 +85,12 @@ public class FileManagementSuperHandler extends RequestHandler {
 			break;
 		case Protocol.PUT:
 			hp = FilePutRequestHandler.file_no_exist(rootDirectory, uri, f, hr);
+			break;
+		case Protocol.DELETE:
+			hp = FileDeleteRequestHandler.file_no_exist(rootDirectory, uri, f, hr);
+			break;
+		case Protocol.POST:
+			hp = FilePostRequestHandler.file_no_exist(rootDirectory, uri, f, hr);
 			break;
 		}
 		return hp;
