@@ -32,6 +32,7 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -52,12 +53,9 @@ public class FilePutRequestHandler {
 	public static HttpResponse file_exists(String rootDirectory, String uri, File f,
 			HttpRequest hr) {
 		try {
-			File file = new File("web/" + f.getName());
-			file.delete();
-			file.createNewFile();
-			BufferedWriter bw = new BufferedWriter(new FileWriter(f));
-			bw.write(hr.getBody());
-			bw.close();
+			PrintWriter writer = new PrintWriter("web/" + f.getName());
+			writer.write(hr.getBody());
+			writer.close();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -72,20 +70,16 @@ public class FilePutRequestHandler {
 	 */
 	public static HttpResponse file_no_exist(String rootDirectory, String uri, File f,
 			HttpRequest hr) {
-		System.out.println("File we are putting: " + f.getName());
 		try {
-				File fi = new File("web/" + f.getName());
-				fi.createNewFile();
-				BufferedWriter bw = new BufferedWriter(new FileWriter(fi));
-				bw.write(hr.getBody());
-				bw.close();
-			
+			PrintWriter writer = new PrintWriter("web/" + f.getName());
+			writer.write(hr.getBody());
+			writer.close();
+			return HttpResponseFactory.create201Created(f, Protocol.CLOSE);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			return HttpResponseFactory.create400BadRequest(Protocol.CLOSE);
 		}
 		// TODO Auto-generated method stub
-		return HttpResponseFactory.create201Created(f, Protocol.CLOSE);
 	}
 }
