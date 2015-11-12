@@ -1,4 +1,0 @@
-index.html
-rmiclient.jar
-rmiserver.jar
-test.txt
