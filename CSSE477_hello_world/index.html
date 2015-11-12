@@ -9,15 +9,15 @@
 <body>
 <h1 align="center"> Primary Code Listing </h1>
 <div id="result"></div>
-<button type="button" onclick="login_function()">Get Files</button>
+<button type="button" onclick="make_call(login_function)">Get Files</button>
 <h1 align="center">Viewing a File</h1>
 <label for="file">File</label>
 <input name="file" type="text" id="file"><br>
 <input name="loaded_file" type="text" id="loaded_file"></input>
 </br>
-<button type="button" onclick="view_file()">View File</button>
-<button type="button" onclick="post_file()">Write File</button>
-<button type="button" onclick="put_file()">Create File</button>
-<button type="button" onclick="delete_file()">Delete File</button>
+<button type="button" onclick="make_call(view_file)">View File</button>
+<button type="button" onclick="make_call(post_file)">Write File</button>
+<button type="button" onclick="make_call(put_file)">Create File</button>
+<button type="button" onclick="make_call(delete_file)">Delete File</button>
 </body>
 </html>

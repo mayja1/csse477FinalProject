@@ -1,15 +1,23 @@
-function login_function(){
+function make_call(continuation){
     getRequest(
-        'http://localhost:8080/manage',
+        'http://localhost:8080/broker',
+        continuation,
+        failure,
+        "GET"
+    )
+}
+function login_function(s){
+    getRequest(
+        'http://' + s + '/manage',
         success,
         failure,
         "GET"
     );
     return false;
 }
-function view_file(){
+function view_file(s){
     getRequest(
-        'http://localhost:8080/' + document.getElementById("file").value,
+        'http://' + s + '/' + document.getElementById("file").value,
         function (str) {
             document.getElementById("loaded_file").value = str;
         },
@@ -18,9 +26,9 @@ function view_file(){
     )
     return false;
 }
-function delete_file() {
+function delete_file(s) {
     getRequest(
-        'http://localhost:8080/' + document.getElementById("file").value,
+        'http://' + s + '/' + document.getElementById("file").value,
         function(str) {
             document.getElementById("loaded_file").value = str;
         },
@@ -28,9 +36,9 @@ function delete_file() {
         "DELETE"
     )
 }
-function post_file() {
+function post_file(s) {
     getRequest(
-        'http://localhost:8080/' + document.getElementById("file").value,
+        'http://' + s + '/' + document.getElementById("file").value,
         function(str) {
             document.getElementById("loaded_file").value = str;
         },
@@ -39,9 +47,9 @@ function post_file() {
         document.getElementById("loaded_file").value
     )
 }
-function put_file() {
+function put_file(s) {
     getRequest(
-        'http://localhost:8080/' + document.getElementById("file").value,
+        'http://' + s + '/' + document.getElementById("file").value,
         function(str) {
             document.getElementById("loaded_file").value = str;
         },
@@ -82,7 +90,7 @@ function getRequest(url, success, error, request, content) { //From: http://stac
     if (typeof error!= 'function') error = function () {};
     req.onreadystatechange = function(){
         if(req.readyState == 4) {
-            return req.status === 200 || req.status === 201 ?
+        return req.status === 200 || req.status === 201 ?
                 success(req.responseText) : error(req.status);
         }
     }
