@@ -74,7 +74,7 @@ public class FilePutRequestHandler {
 			PrintWriter writer = new PrintWriter("web/" + f.getName());
 			writer.write(hr.getBody());
 			writer.close();
-			return HttpResponseFactory.create201Created(f, Protocol.CLOSE);
+			return HttpResponseFactory.create200OK(f, Protocol.CLOSE);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
