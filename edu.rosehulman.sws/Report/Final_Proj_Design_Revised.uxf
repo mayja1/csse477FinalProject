@@ -491,4 +491,47 @@ contained in</panel_attributes>
     <panel_attributes/>
     <additional_attributes>10.0;10.0;10.0;70.0</additional_attributes>
   </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>104</x>
+      <y>136</y>
+      <w>168</w>
+      <h>56</h>
+    </coordinates>
+    <panel_attributes>BrokerHandler
+--
+HttpResponse file_exists();
+HttpResponse file_no_exist();</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>304</x>
+      <y>136</y>
+      <w>168</w>
+      <h>80</h>
+    </coordinates>
+    <panel_attributes>GetRequestHandler
+--
+static List&lt;String&gt; brokers;
+static int index = 0;
+--
+HttpResponse file_exists();
+HttpResponse file_no_exist();</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLPackage</id>
+    <coordinates>
+      <x>88</x>
+      <y>104</y>
+      <w>400</w>
+      <h>136</h>
+    </coordinates>
+    <panel_attributes>Broker
+--</panel_attributes>
+    <additional_attributes/>
+  </element>
 </diagram>
